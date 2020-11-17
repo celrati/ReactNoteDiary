@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 
 import {
@@ -10,7 +10,7 @@ import {
   useRecoilValue,
 } from 'recoil';
 
-import { Layout, Menu, Breadcrumb, Switch } from 'antd';
+import { Layout, Menu, Breadcrumb, Switch as ThemeSwitch } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -18,6 +18,13 @@ import {
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -69,11 +76,16 @@ const App = () => {
       <Header theme={theme} style={{ width: '100%', backgroundColor: `${colorHeader}` }}>
 
         <Menu theme={theme} mode="horizontal" defaultSelectedKeys={['2']}>
-          <Menu.Item key="1">Home</Menu.Item>
-          <Menu.Item key="2">MyDiaries</Menu.Item>
+          <Menu.Item key="1">
+            <Link to="/">Home</Link>
+          </Menu.Item>
+
+          <Menu.Item key="2">
+            <Link to="/mydiaries">My diaries</Link>
+          </Menu.Item>
 
           <Menu.Item style={{ float: 'right' }} key="6">
-            <Switch
+            <ThemeSwitch
               checked={theme === 'dark'}
               onChange={changeTheme}
               checkedChildren="Dark"
@@ -116,14 +128,41 @@ const App = () => {
         </Sider>
 
         <Content theme={theme} style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            Content here
-            </div>
-          <Footer style={{ textAlign: 'center' }}> NoteDiary v0.1 by Celrati 2020 | 2021</Footer>
+
+          <Switch>
+            <Route path="/">
+              <h1>home</h1>
+            </Route>
+            <Route path="/mydiaries">
+              <h1>My diaries</h1>
+            </Route>
+            <Route path="/diarylist">
+              <h1>diarylist</h1>
+            </Route>
+            <Route path="/adddiary">
+              <h1>diarylist</h1>
+            </Route>
+            <Route path="/notelist">
+              <h1>diarylist</h1>
+            </Route>
+            <Route path="/addnote">
+              <h1>diarylist</h1>
+            </Route>
+            <Route path="/credit">
+              <h1>credit</h1>
+            </Route>
+            <Route path="/profile">
+              <h1>profile</h1>
+            </Route>
+            <Route path="/login">
+              <h1>login</h1>
+            </Route>
+            <Route path="/logout">
+              <h1>logout</h1>
+            </Route>
+          </Switch>
+
+          <Footer style={{ textAlign: 'center', position: 'fixed', bottom: 0 }}> NoteDiary v0.1 by Celrati 2020 | 2021</Footer>
         </Content>
 
       </Layout>

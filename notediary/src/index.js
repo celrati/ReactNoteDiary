@@ -13,10 +13,16 @@ import {
   useRecoilValue,
 } from 'recoil';
 
+import {
+  BrowserRouter as Router
+} from "react-router-dom";
+
 ReactDOM.render(
   <RecoilRoot>
     <React.StrictMode>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </React.StrictMode>
   </RecoilRoot>,
 
