@@ -10,7 +10,7 @@ import {
   useRecoilValue,
 } from 'recoil';
 
-import { Layout, Menu, Breadcrumb, Switch as ThemeSwitch } from 'antd';
+import { Layout, Menu, Modal, Switch as ThemeSwitch } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -25,26 +25,16 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Home from './components/home/Home';
+import DiaryList from './components/diaries/DiaryList';
+import DiaryCreate from './components/diaries/DiaryCreate';
+import NoteList from './components/notes/NoteList';
+import NoteCreate from './components/notes/NoteCreate';
+import Credit from './components/about/Credit';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-
-const textState = atom({
-  key: 'textState',
-  default: 'Hello Celrati'
-});
-
-const textSize = selector({
-  key: 'textStateSize',
-  get: ({ get }) => {
-    return get(textState).length;
-  },
-});
-
-const todoListState = atom({
-  key: 'todoListState',
-  default: [],
-});
+const { confirm } = Modal;
 
 
 const App = () => {
@@ -54,12 +44,10 @@ const App = () => {
   const [colorHeader, setColorHeader] = useState('white');
 
 
-  const [text, setText] = useRecoilState(textState);
-  const sizeText = useRecoilValue(textSize);
-
   const hideShow = () => {
     setCollapsed(!collapsed);
   };
+
   const changeTheme = () => {
     if (theme === 'dark') {
       setTheme('light');
@@ -70,6 +58,19 @@ const App = () => {
     }
   };
 
+  const logOutConfirm = () => {
+    confirm({
+      title: 'Do you Want to logout ?',
+      content: 'you can later Log in !',
+      onOk() {
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
+
   return (
     <Layout theme={theme} style={{ minHeight: '100vh' }}>
 
@@ -77,14 +78,10 @@ const App = () => {
 
         <Menu theme={theme} mode="horizontal" defaultSelectedKeys={['2']}>
           <Menu.Item key="1">
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </Menu.Item>
 
           <Menu.Item key="2">
-            <Link to="/mydiaries">My diaries</Link>
-          </Menu.Item>
-
-          <Menu.Item style={{ float: 'right' }} key="6">
             <ThemeSwitch
               checked={theme === 'dark'}
               onChange={changeTheme}
@@ -93,9 +90,18 @@ const App = () => {
             />
           </Menu.Item>
 
-          <Menu.Item style={{ float: 'right' }} key="5">LogOut</Menu.Item>
-          <Menu.Item style={{ float: 'right' }} key="4">LogIn</Menu.Item>
-          <Menu.Item style={{ float: 'right' }} key="3">Profile</Menu.Item>
+
+          <Menu.Item style={{ float: 'right' }} key="5" onClick={logOutConfirm}>
+            LogOut
+          </Menu.Item>
+          
+          <Menu.Item style={{ float: 'right' }} key="4">
+            <Link to="/login">Log in</Link>
+          </Menu.Item>
+
+          <Menu.Item style={{ float: 'right' }} key="3">
+            <Link to="/profile">Profile</Link>
+          </Menu.Item>
         </Menu>
 
 
@@ -109,8 +115,12 @@ const App = () => {
               MyDiaries
             </Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="Diary">
-              <Menu.Item key="3">Diary's list</Menu.Item>
-              <Menu.Item key="4">Add new Diary</Menu.Item>
+              <Menu.Item key="3">
+                <Link to="/diarylist">My diaries</Link>
+              </Menu.Item>
+              <Menu.Item key="4">
+                <Link to="/adddiary">New Diary</Link>
+              </Menu.Item>
 
             </SubMenu>
             <Menu.Item key="2" icon={<DesktopOutlined />}>
@@ -118,11 +128,15 @@ const App = () => {
             </Menu.Item>
 
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Note">
-              <Menu.Item key="6">Note's list</Menu.Item>
-              <Menu.Item key="8">Add new Note</Menu.Item>
+              <Menu.Item key="6">
+                <Link to="/notelist">My Notes</Link>
+              </Menu.Item>
+              <Menu.Item key="8">
+                <Link to="/addnote">New Note</Link>
+              </Menu.Item>
             </SubMenu>
             <Menu.Item key="9" icon={<FileOutlined />}>
-              Crédits
+              <Link to="/credit">Crédits</Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -130,26 +144,23 @@ const App = () => {
         <Content theme={theme} style={{ margin: '0 16px' }}>
 
           <Switch>
-            <Route path="/">
-              <h1>home</h1>
-            </Route>
-            <Route path="/mydiaries">
-              <h1>My diaries</h1>
+            <Route path="/home">
+              <Home />
             </Route>
             <Route path="/diarylist">
-              <h1>diarylist</h1>
+              <DiaryList />
             </Route>
             <Route path="/adddiary">
-              <h1>diarylist</h1>
+              <DiaryCreate />
             </Route>
             <Route path="/notelist">
-              <h1>diarylist</h1>
+              <NoteList />
             </Route>
             <Route path="/addnote">
-              <h1>diarylist</h1>
+              <NoteCreate />
             </Route>
             <Route path="/credit">
-              <h1>credit</h1>
+              <Credit />
             </Route>
             <Route path="/profile">
               <h1>profile</h1>
@@ -159,6 +170,9 @@ const App = () => {
             </Route>
             <Route path="/logout">
               <h1>logout</h1>
+            </Route>
+            <Route path="/">
+              <Home />
             </Route>
           </Switch>
 
