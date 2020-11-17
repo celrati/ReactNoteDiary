@@ -1,9 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import React  from 'react';
+import './Home.css';
+import { Divider } from 'antd';
 
 const Home = () => {
     return (
-        <div>
-            home hello
+        <div style={{ color: 'blue', fontSize : '20px', textAlign: 'center', marginTop: '10%'}}>
+            Welcome dear user To My DiaryNote v0.1, you can write your diaries <br/>
+            and your notes here.
+            <Divider />
+            Techno used : ReactJS with hooks, Ant Design, RecoilJS as state management,
+            Axios for the HTTP queries, react-router-dom for routing
         </div>
     );
 };
