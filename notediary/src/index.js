@@ -6,11 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import {
-  RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
+  RecoilRoot
 } from 'recoil';
 
 import {

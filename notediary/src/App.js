@@ -42,6 +42,11 @@ const { SubMenu } = Menu;
 const { confirm } = Modal;
 
 
+const noteState = atom({
+  key: 'noteState'
+});
+
+
 const App = () => {
 
   const [collapsed, setCollapsed] = useState(false);
@@ -187,7 +192,7 @@ const App = () => {
             </Route>
           </Switch>
 
-          <Footer style={{ textAlign: 'center', position: 'fixed', bottom: 0 }}> NoteDiary v0.1 by Celrati 2020 | 2021</Footer>
+          <Footer style={{ textAlign: 'center' }}> NoteDiary v0.1 by Celrati 2020 | 2021</Footer>
         </Content>
 
       </Layout>
