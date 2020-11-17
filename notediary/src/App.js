@@ -15,8 +15,13 @@ import {
   DesktopOutlined,
   PieChartOutlined,
   FileOutlined,
-  TeamOutlined,
+  PushpinOutlined,
+  ReadOutlined,
+  HomeOutlined,
   UserOutlined,
+  LoginOutlined,
+  LogoutOutlined,
+  CodepenOutlined
 } from '@ant-design/icons';
 
 import {
@@ -77,8 +82,11 @@ const App = () => {
       <Header theme={theme} style={{ width: '100%', backgroundColor: `${colorHeader}` }}>
 
         <Menu theme={theme} mode="horizontal" defaultSelectedKeys={['2']}>
+
           <Menu.Item key="1">
-            <Link to="/home">Home</Link>
+            <Link to="/home">
+              <HomeOutlined />
+            </Link>
           </Menu.Item>
 
           <Menu.Item key="2">
@@ -90,20 +98,25 @@ const App = () => {
             />
           </Menu.Item>
 
-
           <Menu.Item style={{ float: 'right' }} key="5" onClick={logOutConfirm}>
-            LogOut
+            Logout
+            <LogoutOutlined />
           </Menu.Item>
-          
+
           <Menu.Item style={{ float: 'right' }} key="4">
-            <Link to="/login">Log in</Link>
+            <Link to="/login">
+              Login 
+              <LoginOutlined />
+            </Link>
           </Menu.Item>
 
           <Menu.Item style={{ float: 'right' }} key="3">
-            <Link to="/profile">Profile</Link>
+            <Link to="/profile">
+              <UserOutlined />
+            </Link>
           </Menu.Item>
-        </Menu>
 
+        </Menu>
 
       </Header>
 
@@ -111,10 +124,10 @@ const App = () => {
         <Sider theme={theme} collapsible collapsed={collapsed} onCollapse={() => hideShow()}>
 
           <Menu theme={theme} defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1" icon={<PieChartOutlined />}>
-              MyDiaries
-            </Menu.Item>
-            <SubMenu key="sub1" icon={<UserOutlined />} title="Diary">
+
+
+
+            <SubMenu key="sub1" icon={<ReadOutlined />} title="Diary">
               <Menu.Item key="3">
                 <Link to="/diarylist">My diaries</Link>
               </Menu.Item>
@@ -123,11 +136,9 @@ const App = () => {
               </Menu.Item>
 
             </SubMenu>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
-              MyNotes
-            </Menu.Item>
 
-            <SubMenu key="sub2" icon={<TeamOutlined />} title="Note">
+
+            <SubMenu key="sub2" icon={<PushpinOutlined />} title="Note">
               <Menu.Item key="6">
                 <Link to="/notelist">My Notes</Link>
               </Menu.Item>
@@ -135,7 +146,7 @@ const App = () => {
                 <Link to="/addnote">New Note</Link>
               </Menu.Item>
             </SubMenu>
-            <Menu.Item key="9" icon={<FileOutlined />}>
+            <Menu.Item key="9" icon={<CodepenOutlined />}>
               <Link to="/credit">Crédits</Link>
             </Menu.Item>
           </Menu>
